@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
+                    //Having the next line commented in results in movies being empty in some contexts
                     //movies = Movie.fromJsonArray(results);
                     Log.i(TAG, "Results " + results.toString());
                     movies.addAll(Movie.fromJsonArray(results));
