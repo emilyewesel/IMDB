@@ -1,6 +1,8 @@
 package com.example.imdb.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +81,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
-            Glide.with(context).load(movie.getPosterPath()).into(ivPoster);
+
+            String imageUrl;
+            String backupImage;
+            //if phone is in landscape
+            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+                imageUrl = movie.getPosterPath();
+                backupImage = "R.drawable.flicks_movie_placeholder";
+                Glide.with(context).load(imageUrl).
+                        placeholder(Drawable.createFromPath(backupImage))
+                        .error(R.drawable.flicks_movie_placeholder).
+                        into(ivPoster);
+            }
+            else{
+                //if phone is in portrait
+                imageUrl = movie.getBackdropPath();
+                backupImage = "R.drawable.flicks_backdrop_placeholder";
+                Glide.with(context).load(imageUrl).
+                        placeholder(Drawable.createFromPath(backupImage))
+                        .error(R.drawable.flicks_backdrop_placeholder).
+                        into(ivPoster);
+            }
+
+
         }
     }
 }
