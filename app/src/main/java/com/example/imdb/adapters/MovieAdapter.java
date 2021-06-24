@@ -3,6 +3,7 @@ package com.example.imdb.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.imdb.MovieDetailsActivity;
 import com.example.imdb.R;
 import com.example.imdb.models.Movie;
@@ -88,12 +93,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
             String imageUrl;
             String backupImage;
+            int radius = 3; // corner radius, higher value = more rounded
+            int margin = 1; // crop margin, set to 0 for corners with no crop
             //if phone is in portrait
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
                 imageUrl = movie.getPosterPath();
                 backupImage = "R.drawable.flicks_movie_placeholder";
+                RequestOptions requestOptions = new RequestOptions();
+                requestOptions = requestOptions.transforms(new RoundedCorners(100));
                 Glide.with(context).load(imageUrl).
                         placeholder(Drawable.createFromPath(backupImage))
+                        .apply(requestOptions)
                         .error(R.drawable.flicks_movie_placeholder).
                         into(ivPoster);
             }
@@ -116,11 +126,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             if (position >=0 && position < movies.size()){
                 Movie movie = movies.get(position);
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
-
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
                 context.startActivity(intent);
             }
 
         }
     }
+
+
 }
