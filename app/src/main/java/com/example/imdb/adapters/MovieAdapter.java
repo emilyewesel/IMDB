@@ -84,7 +84,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
             String imageUrl;
             String backupImage;
-            //if phone is in landscape
+            //if phone is in portrait
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
                 imageUrl = movie.getPosterPath();
                 backupImage = "R.drawable.flicks_movie_placeholder";
@@ -94,7 +94,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                         into(ivPoster);
             }
             else{
-                //if phone is in portrait
+                //if phone is in landscape
                 imageUrl = movie.getBackdropPath();
                 backupImage = "R.drawable.flicks_backdrop_placeholder";
                 Glide.with(context).load(imageUrl).
