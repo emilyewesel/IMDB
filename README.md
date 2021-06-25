@@ -1,6 +1,6 @@
-# Project 2 - *Name of App Here*
+# Project 2 - *Flickster*
 
-**Name of your app** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
+**Flickster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
 Time spent: **12** hours spent in total
 
