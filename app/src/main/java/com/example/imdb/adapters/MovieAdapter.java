@@ -54,7 +54,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     //populate the item through holder
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        //get the movie at the postion specified
+        //get the movie at the position specified
         //bind the movie data into the VM
         Log.d(TAG, "onBindViewhOlder" + position);
 
@@ -93,13 +93,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
             String imageUrl;
             String backupImage;
-            int radius = 3; // corner radius, higher value = more rounded
-            int margin = 1; // crop margin, set to 0 for corners with no crop
             //if phone is in portrait
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
                 imageUrl = movie.getPosterPath();
                 backupImage = "R.drawable.flicks_movie_placeholder";
                 RequestOptions requestOptions = new RequestOptions();
+                //this next line of code allows for rounded corners
                 requestOptions = requestOptions.transforms(new RoundedCorners(100));
                 Glide.with(context).load(imageUrl).
                         placeholder(Drawable.createFromPath(backupImage))
@@ -116,16 +115,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                         .error(R.drawable.flicks_backdrop_placeholder).
                         into(ivPoster);
             }
-
-
         }
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
+            //The function getAdapterPosition tells us what movie the user is clicking on,
+            // that way we can pass the information to the next activity using intent.putExtra
             if (position >=0 && position < movies.size()){
                 Movie movie = movies.get(position);
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
+                //here we put the relevant movie the intent so that we can show the details of it later
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
                 context.startActivity(intent);
             }

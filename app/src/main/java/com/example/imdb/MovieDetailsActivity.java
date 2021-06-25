@@ -15,9 +15,11 @@ import com.example.imdb.models.Movie;
 import org.parceler.Parcels;
 
 public class MovieDetailsActivity extends AppCompatActivity {
+    /**This class contains the logic for the more detailed page for each movie.
+     * In addition to the title, description, and image of a movie, this page also can display the rating.
+     */
 
     Movie movie;
-
     TextView tvTitle;
     TextView tvOverview;
     RatingBar rbVoteAverage;
@@ -32,9 +34,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         tvOverview = (TextView) findViewById(R.id.tvOverview);
         rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
         image = (ImageView) findViewById(R.id.image);
-
+        //By using getIntent and setIntent, we are able to pass information between activities about what movie to display
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
-
 
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
@@ -45,6 +46,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         String imageUrl;
         String backupImage;
 
+        //This code diplays the images and is very similar to the code in the MovieAdapter class
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             imageUrl = movie.getPosterPath();
             backupImage = "R.drawable.flicks_movie_placeholder";

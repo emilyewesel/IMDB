@@ -46,11 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Set a layout manager on the recycler view
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
-
+        //Setting up an asynchronous client. We will not wait for a response from the server to continue.
         AsyncHttpClient client = new AsyncHttpClient();
-        //RequestParams params = new RequestParams();
-        //params.put("limit", "5");
-        //params.put("page", 0);
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
